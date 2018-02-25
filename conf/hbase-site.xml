@@ -1,0 +1,6 @@
+<configuration>
+  <property>
+    <name>hbase.rootdir</name>
+    <value>hdfs://hadoop-master:9000/hbase</value>
+  </property>
+</configuration>
