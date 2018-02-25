@@ -4,7 +4,6 @@ services:
   client:
     build: client
     hostname: client
-    # restart: unless-stopped
     ports:
         - 4040:4040
     volumes: 
@@ -17,6 +16,7 @@ services:
         - volume_hive:/hive
         - ./program:${WORKSPACE_ROOT}/program
     working_dir: ${WORKSPACE_ROOT}/program
+
 volumes:
   volume_hive:
 
