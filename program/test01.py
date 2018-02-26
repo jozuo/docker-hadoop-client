@@ -1,7 +1,7 @@
 from pyspark import SparkContext, SparkConf
 
-# PATH_PREFIX='hdfs:///tmp'
-PATH_PREFIX = 'file:///Users/toru/spark/program/data'
+PATH_PREFIX='hdfs:///tmp'
+# PATH_PREFIX = 'file:///Users/toru/spark/program/data'
 
 conf = SparkConf().setAppName('MyFirstStandaloneApp')
 sc = SparkContext(conf=conf)
@@ -12,9 +12,9 @@ counts = text_file.flatMap(lambda line: line.split(' ')) \
     .reduceByKey(lambda a, b: a + b)
 
 
-def printLine(line):
+def print_line(line):
     print(line)
 
 
-counts.foreach(printLine)
+counts.foreach(print_line)
 counts.saveAsTextFile(PATH_PREFIX + '/output')
