@@ -76,10 +76,12 @@ try:
         .map(lambda element: (element[0], summary(element[1])))
 
     # マスタ解決
-    results = sales_total.map(lambda element: resolve_master(master_map, element))
+    results = sales_total.map(
+        lambda element: resolve_master(master_map, element))
 
     # 保存
-    results.repartition(1).saveAsTextFile(FILE_PATH + '/' + 'oct-nov-over-50-sold')
+    results.saveAsTextFile(FILE_PATH + '/' + 'oct-nov-over-50-sold')
+    # results.repartition(1).saveAsTextFile(FILE_PATH + '/' + 'oct-nov-over-50-sold')
 
 finally:
     sc.stop()
