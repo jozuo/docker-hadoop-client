@@ -21,7 +21,7 @@ total_f_acc = sc.accumulator(0)
 #     global num_f_acc
 #     global total_m_acc
 #     global total_f_acc
-#
+
 #     if element[1] == 'M':
 #         num_m_acc += 1
 #         total_m_acc += element[2]
@@ -29,8 +29,8 @@ total_f_acc = sc.accumulator(0)
 #         num_f_acc += 1
 #         total_f_acc += element[2]
 
-# メソッド呼び出しの場合は問題なし
-def calc(element):
+# メソッド呼び出しの場合は`global`での再定義不要
+def calculate_m_or_f_average(element):
     if element[1] == 'M':
         num_m_acc.add(1)
         total_m_acc.add(element[2])
@@ -47,6 +47,20 @@ def split_data(line):
     return age_range, sex, point
 
 
+def compute_all_average(rdd):
+    return rdd\
+        .map(lambda element: (element[2], 1))\
+        .reduce(lambda result, element: (
+            result[0] + element[0], result[1], element[1]))
+
+
+def compute_age_range_averate(rdd):
+    return rdd\
+        .map(lambda element: (element[0], (element[2], 1))) \
+        .reduceByKey(lambda result, element: (
+            result[0] + element[0], result[1] + element[1]))
+
+
 try:
     # データの読み込み
     data = sc.textFile(FILE_PATH + '/' + INPUT_FILE) \
@@ -61,21 +75,18 @@ try:
     # print('AVG ALL: ' + str(total_point / count))
 
     # 全体平均の算出2
-    total_average = data\
-        .map(lambda element: (element[2], 1)) \
-        .reduce(lambda result, element: (result[0] + element[0], result[1] + element[1]))
+    total_average = compute_all_average(data)
     print('AVG ALL: ' + str(total_average[0] / total_average[1]))
 
     # 年代別平均
-    age_range_average = data.map(lambda element: (element[0], (element[2], 1))) \
-        .reduceByKey(lambda result, element: (result[0] + element[0], result[1] + element[1]))
-
+    age_range_average = compute_age_range_averate(data)
     for value in age_range_average.collect():
-        print('AVG Age Range(' + str(value[0]) + '): ' + str(value[1][0] / value[1][1]))
+        print('AVG Age Range(' + str(value[0]) +
+              '): ' + str(value[1][0] / value[1][1]))
 
     # 性別毎平均
     # アキュームレータを利用する
-    data.foreach(calc)
+    data.foreach(calculate_m_or_f_average)
     print('AVG M: ' + str(total_m_acc.value / num_m_acc.value))
     print('AVG F: ' + str(total_f_acc.value / num_f_acc.value))
 
