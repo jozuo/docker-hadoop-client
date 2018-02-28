@@ -18,5 +18,3 @@ fi
 # start hbase
 start-hbase.sh
 
-# end
-tail -f /dev/null

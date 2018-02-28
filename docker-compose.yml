@@ -6,6 +6,7 @@ services:
     hostname: client
     ports:
         - 4040:4040
+    tty: true
     volumes: 
         - ./conf/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
         - ./conf/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
