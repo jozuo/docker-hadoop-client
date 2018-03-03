@@ -18,13 +18,13 @@ services:
         - ./program:${WORKSPACE_ROOT}/program
     working_dir: ${WORKSPACE_ROOT}/program
 
-  jupyter:
-    image: jupyter/pyspark-notebook
-    ports:
-        - 8888:8888
-    volumes: 
-        - ./program:${WORKSPACE_ROOT}/program
-    working_dir: ${WORKSPACE_ROOT}/program
+#   jupyter:
+#     image: jupyter/pyspark-notebook
+#     ports:
+#         - 8888:8888
+#     volumes: 
+#         - ./program:${WORKSPACE_ROOT}/program
+#     working_dir: ${WORKSPACE_ROOT}/program
 
 volumes:
   volume_hive:

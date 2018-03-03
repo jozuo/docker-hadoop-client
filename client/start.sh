@@ -16,5 +16,4 @@ if [ `ls /hive | grep ${INIT_MARKER} | wc -l` -eq 0 ]; then
 fi
 
 # start hbase
-start-hbase.sh
-
+start-hbase.sh && bash
