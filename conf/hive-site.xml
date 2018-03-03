@@ -6,4 +6,9 @@
     <value>jdbc:derby:;databaseName=/hive/metastore_db;create=true</value>
     <description>JDBC connect string for a JDBC metastore</description>
   </property>
+  <property>
+    <name>hive.metastore.warehouse.dir</name>
+    <value>/user/hive/warehouse</value>
+    <description>location of default database for the warehouse</description>
+  </property>
 </configuration>
