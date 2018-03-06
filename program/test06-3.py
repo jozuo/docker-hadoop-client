@@ -14,7 +14,7 @@ def calc_length(str):
 
 def main():
     # UDF(User Define Function)
-    #context.udf.register('strlen', lambda x: len(x), IntegerType())
+    # context.udf.register('strlen', lambda x: len(x), IntegerType())
     context.udf.register('strlen', calc_length, IntegerType())
     print(context.sql('select strlen("Hello World") as strlen').show())
 

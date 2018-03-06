@@ -1,7 +1,10 @@
 # encoding=UTF-8
 
 from pyspark import SparkContext, SparkConf, SQLContext, Row
+
+# pylint: disable=E0611
 from pyspark.sql.functions import sum
+# pylint: enable=E0611
 
 
 FILE_PATH = '/Users/toru/spark/program/data'
@@ -26,7 +29,7 @@ def get_order():
 
 
 def main(filename):
-    tryprice:
+    try:
         # 結合
         # - 2のDataFrameを用意
         menu = get_menu()

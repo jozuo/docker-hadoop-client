@@ -14,6 +14,7 @@ services:
         - ./conf/yarn-site.xml:/opt/hadoop/etc/hadoop/yarn-site.xml
         - ./conf/hbase-site.xml:/opt/hbase/conf/hbase-site.xml
         - ./conf/hive-site.xml:/opt/hive/conf/hive-site.xml
+        - ./conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
         - volume_hive:/hive
         - ./program:${WORKSPACE_ROOT}/program
     working_dir: ${WORKSPACE_ROOT}/program
